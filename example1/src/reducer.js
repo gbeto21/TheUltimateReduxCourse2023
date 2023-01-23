@@ -1,6 +1,6 @@
 let id = 0
 
-function reducer(state = [], action) {
+export function reducer(state = [], action) {
   const { type } = action
   switch (type) {
     case "ADD_TASK":
