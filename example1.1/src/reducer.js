@@ -1,8 +1,8 @@
 import * as actionTypes from "./actionTypes"
-import { createReducer } from "@reduxjs/toolkit"
+import { createReducer, createSlice } from "@reduxjs/toolkit"
 let id = 0
 
-export default createReducer([], {
+export const reducer = createReducer([], {
   [actionTypes.ADD_TASK]: (state, action) => {
     state.push({
       id: ++id,
@@ -19,6 +19,30 @@ export default createReducer([], {
     state[index].completed = true
   },
 })
+
+const slice = createSlice({
+  name: "task",
+  initialState: [],
+  reducers: {
+    [actionTypes.ADD_TASK]: (state, action) => {
+      state.push({
+        id: ++id,
+        task: action.payload,
+        completed: false,
+      })
+    },
+    [actionTypes.REMOVE_TASK]: (state, action) => {
+      const index = state.findIndex((task) => task.id === action.payload.id)
+      state.splice(index, 1)
+    },
+    [actionTypes.TASK_COMPLETED]: (state, action) => {
+      const index = state.findIndex((task) => task.id === action.payload.id)
+      state[index].completed = true
+    },
+  },
+})
+
+export const sliceReducer = slice.reducer
 
 // export function reducer(state = [], action) {
 //   // console.log("🚚 Action:")
