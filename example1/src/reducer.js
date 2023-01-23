@@ -2,6 +2,8 @@ import * as actionTypes from "./actionTypes"
 let id = 0
 
 export function reducer(state = [], action) {
+  // console.log("🚚 Action:")
+  // console.dir(action)
   const { type } = action
   switch (type) {
     case actionTypes.ADD_TASK:
